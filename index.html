@@ -17,19 +17,19 @@
 <body>
 <section 
     style="background-image: url('01.jpg'); background-repeat: no-repeat; background-position: center; background-size:cover; " 
-    class="relative w-[100%] lg:h-[120vh] h-[160vh] min-h-[100vh]">
-    <div class="absolute w-[100%] lg:h-[120vh] h-[160vh] min-h-[100vh] bg-black opacity-50 z-10"></div>
-    <div class="absolute w-[100%] h-[160vh lg:h-[120vh] min-h-[100vh] z-20 py-[3rem] flex flex-col items-center justify-center gap-4 text-white">
+    class="relative w-[100%] lg:h-[130vh] h-[160vh] min-h-[100vh]">
+    <div class="absolute w-[100%] lg:h-[130vh] h-[160vh] min-h-[100vh] bg-black opacity-50 z-10"></div>
+    <div class="absolute w-[100%] lg:h-[130vh] h-[160vh min-h-[100vh] z-20 py-[3rem] flex flex-col items-center justify-center gap-4 text-white">
         <div class="flex flex-col items-center justify-center gap-4 mb-8">
             <div class="w-[50%] flex items-center justify-center">
                 <img alt="Logo" src="iba_logo.png" class="w-[100%] object-contain" />
             </div>
-            <h1 class="text-center font-medium text-[1.3rem] tracking-[2px] leading-tight drop-shadow-lg">
+            <h1 class="text-center font-medium lg:text-[1.4rem] text-[1.2rem] tracking-[2px] leading-tight drop-shadow-lg">
                 Final Stage Of Pre-Launch Investments
             </h1>
         </div>
         <!--  -->
-        <div id="timer" class="text-center font-bold tracking-[2px] text-[3rem] mb-8"></div>
+        <div id="timer" class="text-center font-bold tracking-[2px] lg:text-[3rem] text-[2rem]  mb-8"></div>
         <!--  -->
         <div class="mb-8 pl-4 text-gray-50">
             <p class="leading-tight text-center font-light tracking-[2px] mb-4">COMING SOON</p>
@@ -72,30 +72,36 @@
 <script>
          
     function startTimer(durationInSeconds, displayElement) {
-    let timer = durationInSeconds;
-    let days, hours, minutes, seconds;
+        let timer = durationInSeconds;
+        let days, hours, minutes, seconds;
 
-    function updateDisplay() {
-        days = Math.floor(timer / (60 * 60 * 24));
-        hours = Math.floor((timer % (60 * 60 * 24)) / (60 * 60));
-        minutes = Math.floor((timer % (60 * 60)) / 60);
-        seconds = Math.floor(timer % 60);
+        function updateDisplay() {
+            days = Math.floor(timer / (60 * 60 * 24));
+            hours = Math.floor((timer % (60 * 60 * 24)) / (60 * 60));
+            minutes = Math.floor((timer % (60 * 60)) / 60);
+            seconds = Math.floor(timer % 60);
 
-        days = days < 10 ? "0" + days : days;
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+            days = days < 10 ? "0" + days : days;
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        displayElement.textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+            //displayElement.textContent = `<span class='bg-white text-black p-2'>${days}d</span> ${hours}h ${minutes}m ${seconds}s`;
+            displayElement.innerHTML = `
+                <span class='bg-gray-100 rounded-lg text-black p-2'>${days}d</span> 
+                <span class='bg-gray-100 rounded-lg text-black p-2'>${hours}h</span>
+                <span class='bg-gray-100 rounded-lg text-black p-2'>${minutes}m</span> 
+                <span class='bg-gray-100 rounded-lg text-black p-2'>${seconds}s</span>
+            `;
 
-        if (--timer < 0) {
-        clearInterval(interval);
-        displayElement.textContent = "Timer expired";
+            if (--timer < 0) {
+            clearInterval(interval);
+            displayElement.textContent = "Timer expired";
+            }
         }
-    }
 
-    updateDisplay();
-    const interval = setInterval(updateDisplay, 1000);
+        updateDisplay();
+        const interval = setInterval(updateDisplay, 1000);
     }
 
     const display = document.getElementById("timer");
